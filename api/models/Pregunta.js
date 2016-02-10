@@ -9,21 +9,31 @@ module.exports = {
 
   attributes: {
 
-    pregunta : {
+    enunciado : {
     	type: 'string',
-    	size: 255,
-    	required: true
+    	size: 45,
 	},
 
-    respuesta : { type: 'string',
-    	size: 255,
-    	required: true
+    tipo : {
+        type: 'string',
+        enum: ['VoF', 'Numerica', 'Ensayo']
     },
 
     cuestionarios : {
         collection : 'cuestionario',
         via : 'preguntas'
+    },
+
+    respuestas : {
+        collection : 'respuesta',
+        via : 'pregunta'
+    },
+
+    opcions : {
+        collection : 'opcion',
+        via : 'pregunta'
     }
+
   }
 };
 

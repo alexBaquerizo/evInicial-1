@@ -33,7 +33,12 @@ module.exports = {
     cuestionarios : {
     	collection : 'cuestionario',
     	via : 'alumnos'
-    }
+    },
+
+    respuestas : {
+        collection : 'respuesta',
+        via : 'alumno'
+    },
 
   }
 };
