@@ -14,12 +14,12 @@ module.exports = {
     	size:'255'
 	},
 
-	cuestionario : {
-    	model: 'cuestionario',
-	},
-
 	puntuacion : {
     	type: 'integer',
+	},
+	
+	cuestionario : {
+    	model: 'cuestionario',
 	},
 
 	pregunta: {

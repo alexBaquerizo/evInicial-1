@@ -16,7 +16,7 @@ module.exports = {
 
     tipo : {
         type: 'string',
-        enum: ['VoF', 'Numerica', 'Ensayo']
+        enum: ['truefalse', 'shortanswer', 'numerical', 'multichoice', 'matching', 'essay']
     },
 
     cuestionarios : {
@@ -32,7 +32,12 @@ module.exports = {
     opcions : {
         collection : 'opcion',
         via : 'pregunta'
-    }
+    },
+
+    miPregunta: function () {
+        return this.toJSON();
+
+    },
 
   }
 };

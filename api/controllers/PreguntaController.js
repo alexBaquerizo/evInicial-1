@@ -10,7 +10,7 @@ module.exports = {
 	load: function(req, res, next) {
 		Pregunta.findOne({
 			where: { id: Number(req.params.preguntaId)}
-		}).then(function(pregunta){
+		}).populate('opcions').then(function(pregunta){
 			if(pregunta) {
 				req.pregunta = pregunta;
 				next();
@@ -25,6 +25,22 @@ module.exports = {
 			resultado = 'Correcto';
 		}
 		res.json(resultado);
-	} 
+	},
+	/*
+	miPregunta: function(req, res, next) {
+		res.send(req.pregunta.miPregunta());
+	},
+	*/
+
+	miPregunta: function(req, res, next) {
+		Opcion.find({
+			where: { pregunta: Number(req.pregunta.id)}
+		}).populate('subopcions').then(function(miPregunta){
+			var ob = req.pregunta.toJSON();
+			ob['opcions'] = miPregunta;
+			res.json(ob);
+			next();
+		}).catch(function(error){next(error);});
+	},
 };
 
