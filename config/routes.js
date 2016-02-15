@@ -55,12 +55,11 @@ module.exports.routes = {
     'PreguntaController.miPregunta'
   ],
   
-  /*
   'POST r|^/cuestionario/(\\d+)/pregunta/(\\d+)/respuesta$|cuestionarioId,preguntaId' : [
-    'CuestionarioController.load',
-    'CuestionarioController.duplicar'
+    'PreguntaController.load',
+    'RespuestaController.respuestaAlumno'
   ],
-  */
+
 
     'POST r|^/cuestionario/(\\d+)/duplicar$|cuestionarioId' : [
     'CuestionarioController.load',

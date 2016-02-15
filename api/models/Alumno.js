@@ -36,7 +36,7 @@ module.exports = {
     },
 
     respuestas : {
-        collection : 'respuesta',
+        collection  : 'respuesta',
         via : 'alumno'
     },
 
