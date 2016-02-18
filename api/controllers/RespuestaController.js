@@ -7,34 +7,46 @@
 
 module.exports = {
 	respuestaAlumno: function(req, res, next) {
-		var Respuesta = req.body.answered;
-		var Puntos =0;
+		var respuesta = req.body.answered;
 
-		Opcion.find({
-			where: { pregunta: Number(req.pregunta.id)}
-		}).populate('subopcions').then(function(misOpciones){
+	  	Opcion.findOne({
+        	where: { id: Number(respuesta)}
+		}).populate('subopcions').then(function(miOpcion){
+
+			if(miOpcion) {
+
+				sails.log.verbose(miOpcion.subopcions[0].valor);
+
+				for (var i = 0; i < miOpcion.subopcions.length; i++) { 
+					if (miOpcion.subopcions[i].valor == 100){
+						sails.log.verbose('Correcto');
+						res.send('OK');
+					} else{
+						next();
+					}
+				}
+
+			} else { next(new Error('No has respondido correctamente'));}
 
 			/*
-			misOpciones.forEach(function(name){}
-			*/
-			sails.log.verbose(Respuesta);
-			sails.log.verbose(misOpciones[0].subopcions[0].valor);
-			sails.log.verbose(misOpciones[0].id);
+				miOpcionJSON = miOpcion.toJSON();
+				res.json(miOpcionJSON);
+				next();
+				Respuesta.create({valor: answered});
 
+            
 			for (var i = 0; i < misOpciones.length; i++) { 
 				if (misOpciones[i].id == Respuesta){
-					Puntos ++;
 					sails.log.verbose('Correcto');
-					res.send(Puntos);
+					res.send('OK');
 				} else{
 					sails.log.verbose('Incorrecto');
 					res.send('NO');
 					next(new Error('Respuesta Incorrecta'));
 				}
 			}
-
+			*/
 		}).catch(function(error){next(error);});
 	},
 };
 
- 
