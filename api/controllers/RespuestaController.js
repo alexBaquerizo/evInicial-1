@@ -7,22 +7,60 @@
 
 module.exports = {
 	respuestaAlumno: function(req, res, next) {
-		var miRespuesta = req.body.answered;
+		var respuesta = req.body.answered;
+		var puntos = 0;
+		var valorRespuesta = 0;
 
-		Opcion.find({
-			where: { pregunta: Number(req.pregunta.id)}
+	  	Opcion.findOne({
+        	where: { id: Number(respuesta)}
 		}).populate('subopcions').then(function(misOpciones){
 
-			var prueba = 
+			/*sails.log.verbose(misOpciones.subopcions[0]);*/
+		
+			misOpciones.subopcions.forEach(function(subopcion){
+				
+				sails.log.verbose(subopcion);
 
-			while (misOpciones.subopcions.length){
-				if( == miRespuesta) {
-					res.send('OK');
+				if(subopcion.nombre === 'fraccion'){
+					puntos= subopcion.valor;
+
 				}
-	    	}
 
-			next();
-		}).catch(function(error){next(error);});
+				if(subopcion.nombre === 'text'){
+					valorRespuesta= subopcion.valor;
+				}
+				
+			});
+
+			Respuesta.create({valor: valorRespuesta, puntuacion: puntos})
+				.exec(function createCB(err, created){
+					res.json(created);
+			});
+		});
+
+		/*
+		miOpcion.findOne({
+        	where: { nombre: 'fraccion'}
+        }).then(function(miSubopcion){
+
+			sails.log.verbose(miSubopcion.valor);
+		
+		});
+				miOpcionJSON = miOpcion.toJSON();
+				res.json(miOpcionJSON);
+				next();
+				Respuesta.create({valor: answered});
+            
+			for (var i = 0; i < misOpciones.length; i++) { 
+				if (misOpciones[i].id == Respuesta){
+					sails.log.verbose('Correcto');
+					res.send('OK');
+				} else{
+					sails.log.verbose('Incorrecto');
+					res.send('NO');
+					next(new Error('Respuesta Incorrecta'));
+				}
+			}
+		*/
 	},
 };
-
