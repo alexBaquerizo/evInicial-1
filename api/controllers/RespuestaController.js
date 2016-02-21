@@ -21,9 +21,8 @@ module.exports = {
 				
 				sails.log.verbose(subopcion);
 
-				if(subopcion.nombre === 'fraccion'){
+				if(subopcion.nombre === 'fraction'){
 					puntos= subopcion.valor;
-
 				}
 
 				if(subopcion.nombre === 'text'){
@@ -32,10 +31,24 @@ module.exports = {
 				
 			});
 
-			Respuesta.create({valor: valorRespuesta, puntuacion: puntos})
-				.exec(function createCB(err, created){
-					res.json(created);
+			sails.log.verbose(req.session.passport.user);
+
+			Alumno.findOne({
+				where: {user: req.session.passport.user}
+				}).then(function(alumno){
+
+					sails.log.verbose(alumno);
+
+					if(alumno){
+						Respuesta.create({valor: valorRespuesta, puntuacion: puntos, cuestionario: req.cuestionario.id, pregunta: req.pregunta.id, alumno: alumno.id })
+						.exec(function createCB(err, created){
+							res.json(created);
+						});
+					}else{
+						res.send("No estas autenticado como usuario Alumno");
+					}
 			});
+
 		});
 
 		/*
