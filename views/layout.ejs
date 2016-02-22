@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app = "MiProyecto">
   <head>
     <title>New Sails App</title>
 
@@ -27,13 +27,14 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
-
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="/js/controllers/controlador.js"></script>
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
   </head>
 
-  <body>
+  <body ng-controller="FirstController">
     <%- body %>
 
 
@@ -89,6 +90,7 @@
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/controller/controlador.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>

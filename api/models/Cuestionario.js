@@ -38,14 +38,37 @@ module.exports = {
 	    })
     },
 
-  asociarGrupo: function (grupo, cb) {
+    asociarGrupo: function (grupo, cb) {
 
-	    while (grupo.alumnos.length){
-	    	var alumno = grupo.alumnos.pop();
-		    this.alumnos.add(alumno.id);
-		    this.save(console.log);
-	    }
+      while (grupo.alumnos.length){
+      	var alumno = grupo.alumnos.pop();
+        this.alumnos.add(alumno.id);
+        this.save(console.log);
+      }
+
+    },
+
+    aJSON: function(cb) {
+
+          var preguntasPromises = [];
+          cuestionarioJSON = this.toJSON();
+
+          for (var i = 0; i < this.preguntas.length; ++i) {
+
+            preguntasPromises.push(this.preguntas[i].aJSON());
+            //pregunta.aJSON(function(preguntaJSON){ preguntasJSON.push(preguntaJSON); 
+          }
+          
+          Promise.all(preguntasPromises).then(function(opciones) {
+
+          for (var i = 0; i < preguntasPromises.length; ++i) {
+               cuestionarioJSON.preguntas[i].opciones = opciones[i];
+          }
+              cb(cuestionarioJSON);
+          });
+
     }
+
   },
 
   duplicar: function (cuestionario, cb) {

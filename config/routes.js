@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    view: 'inicio'
   },
 
   /***************************************************************************
@@ -58,7 +58,7 @@ module.exports.routes = {
   'POST r|^/cuestionario/(\\d+)/pregunta/(\\d+)/respuesta$|cuestionarioId,preguntaId' : [
     'CuestionarioController.load',
     'PreguntaController.load',
-    'RespuestaController.respuestaAlumno'
+    'RespuestaController.respuesta'
   ],
 
 

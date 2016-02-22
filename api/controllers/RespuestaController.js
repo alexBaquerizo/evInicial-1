@@ -6,6 +6,11 @@
  */
 
 module.exports = {
+
+	respuesta: function(req, res, next){
+		req.pregunta.comprobarRespuesta(req.body.answered, req.session.passport.user, req.cuestionario.id, req.pregunta.id, res);
+	},
+	/*
 	respuestaAlumno: function(req, res, next) {
 		var respuesta = req.body.answered;
 		var puntos = 0;
@@ -15,8 +20,6 @@ module.exports = {
         	where: { id: Number(respuesta)}
 		}).populate('subopcions').then(function(misOpciones){
 
-			/*sails.log.verbose(misOpciones.subopcions[0]);*/
-		
 			misOpciones.subopcions.forEach(function(subopcion){
 				
 				sails.log.verbose(subopcion);
@@ -50,30 +53,6 @@ module.exports = {
 			});
 
 		});
-
-		/*
-		miOpcion.findOne({
-        	where: { nombre: 'fraccion'}
-        }).then(function(miSubopcion){
-
-			sails.log.verbose(miSubopcion.valor);
-		
-		});
-				miOpcionJSON = miOpcion.toJSON();
-				res.json(miOpcionJSON);
-				next();
-				Respuesta.create({valor: answered});
-            
-			for (var i = 0; i < misOpciones.length; i++) { 
-				if (misOpciones[i].id == Respuesta){
-					sails.log.verbose('Correcto');
-					res.send('OK');
-				} else{
-					sails.log.verbose('Incorrecto');
-					res.send('NO');
-					next(new Error('Respuesta Incorrecta'));
-				}
-			}
-		*/
 	},
+	*/
 };
