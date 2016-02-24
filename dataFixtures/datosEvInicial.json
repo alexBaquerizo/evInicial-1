@@ -1,38 +1,120 @@
 [
+
   {
     "model":"pregunta",
     "items":[
-    {
-        "pregunta": "Capital de España",
-        "respuesta": "Madrid",
-        "id": 1
-    },
-    {
-        "pregunta": "Capital de Francia",
-        "respuesta": "Paris",
-        "id": 2
-    },
-    {
-        "pregunta": "Capital de Italia",
-        "respuesta": "Roma",
-        "id": 3
-    }
-]
+      {
+          "enunciado": "Capital de España",
+          "tipo": "multichoice",
+          "id": 1
+      },
+      {
+          "enunciado": "¿Eres alumno de 2DAW?",
+          "tipo": "truefalse",
+          "id": 2
+      },
+      {
+          "enunciado": "Capital de Italia",
+          "tipo": "multichoice",
+          "id": 3
+      }
+    ]
   },
+
+  {
+    "model":"opcion",
+    "items":[
+      {
+          "tipoOpcion": "multichoice",
+          "id": 1,
+          "pregunta" : 1
+      },
+      {
+          "tipo": "multichoice",
+          "id": 2,
+          "pregunta": 1
+      },
+      {
+          "tipo": "truefalse",
+          "id": 3,
+          "pregunta": 2
+      },
+      {
+          "tipo": "truefalse",
+          "id": 4,
+          "pregunta": 2
+      }
+    ]
+  },
+
+  {
+    "model":"subopcion",
+    "items":[
+      {
+          "nombre": "fraccion",
+          "valor": "100",
+          "id": 1,
+          "opcion": 1
+      },
+      {
+          "nombre": "text",
+          "valor": "Madrid",
+          "id": 2,
+          "opcion": 1
+      },
+      {
+          "nombre": "fraccion",
+          "valor": "0",
+          "id": 3,
+          "opcion": 1
+      },
+      {
+          "nombre": "text",
+          "valor": "Francia",
+          "id": 4,
+          "opcion": 1
+      },
+      {
+          "nombre": "fraccion",
+          "valor": "100",
+          "id": 5,
+          "opcion": 3
+      },
+      {
+          "nombre": "text",
+          "valor": "true",
+          "id": 6,
+          "opcion": 3
+      },
+      {
+          "nombre": "fraccion",
+          "valor": "0",
+          "id": 7,
+          "opcion": 4
+      },
+      {
+          "nombre": "text",
+          "valor": "false",
+          "id": 8,
+          "opcion": 4
+      }
+    ]
+  },
+
   {
     "model":"cuestionario",
     "items":[
       {
           "preguntas": [
               {
-                  "pregunta": "Capital de Francia",
-                  "respuesta": "Paris",
-                  "id": 2
+                  "enunciado": "Capital de Francia",
+                  "tipo": "multichoice",
+                  "id": 1
               },
               {
-                  "pregunta": "Capital de Italia",
-                  "respuesta": "Roma",
-                  "id": 3
+                  "enunciado": "¿Eres alumno de 2DAW?",
+                  "tipo": "truefalse",
+                  "id": 2
               }
           ],
           "alumnos": [],
