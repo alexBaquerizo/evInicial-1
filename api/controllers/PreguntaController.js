@@ -42,5 +42,26 @@ module.exports = {
 			next();
 		}).catch(function(error){next(error);});
 	},
+
+	siguiente: function(req, res) {
+
+		/*
+		Cuestionario.findOne({
+			where: { id: Number(req.cuestionario.id)}
+		}).populate('preguntas').then(function(allPreguntas){
+			sails.log.verbose(allPreguntas.preguntas[preguntaActual].id);
+			siguiente = allPreguntas.preguntas[preguntaActual+1].id;
+			sails.log.verbose(siguiente);
+		*/
+
+		Pregunta.findOne({
+			where: { id : { '>': Number(req.pregunta.id)}}
+		}).then(function(allPreguntas){
+		
+			sails.log.verbose(allPreguntas);
+			res.json(allPreguntas);
+
+		});
+	},
 };
 

@@ -14,8 +14,8 @@
           "id": 2
       },
       {
-          "enunciado": "Capital de Italia",
-          "tipo": "multichoice",
+          "enunciado": "2 + 2",
+          "tipo": "numerical",
           "id": 3
       }
     ]
@@ -43,6 +43,21 @@
           "tipo": "truefalse",
           "id": 4,
           "pregunta": 2
+      },
+      {
+          "tipo": "numerical",
+          "id": 5,
+          "pregunta": 3
+      },
+      {
+          "tipo": "numerical",
+          "id": 6,
+          "pregunta": 3
+      },
+      {
+          "tipo": "numerical",
+          "id": 7,
+          "pregunta": 3
       }
     ]
   },
@@ -66,13 +81,13 @@
           "nombre": "fraccion",
           "valor": "0",
           "id": 3,
-          "opcion": 1
+          "opcion": 2
       },
       {
           "nombre": "text",
           "valor": "Francia",
           "id": 4,
-          "opcion": 1
+          "opcion": 2
       },
       {
           "nombre": "fraccion",
@@ -97,6 +112,42 @@
           "valor": "false",
           "id": 8,
           "opcion": 4
+      },
+      {
+          "nombre": "text",
+          "valor": "4",
+          "id": 9,
+          "opcion": 5
+      },
+      {
+          "nombre": "fraccion",
+          "valor": "0",
+          "id": 10,
+          "opcion": 5
+      },
+      {
+          "nombre": "text",
+          "valor": "6",
+          "id": 11,
+          "opcion": 6
+      },
+      {
+          "nombre": "fraccion",
+          "valor": "0",
+          "id": 12,
+          "opcion": 6
+      },
+      {
+          "nombre": "text",
+          "valor": "5",
+          "id": 13,
+          "opcion": 7
+      },
+      {
+          "nombre": "fraccion",
+          "valor": "0",
+          "id": 14,
+          "opcion": 7
       }
     ]
   },
@@ -115,6 +166,11 @@
                   "enunciado": "¿Eres alumno de 2DAW?",
                   "tipo": "truefalse",
                   "id": 2
+              },
+              {
+                  "enunciado": "2 + 2",
+                  "tipo": "numerical",
+                  "id": 3
               }
           ],
           "alumnos": [],
@@ -212,7 +268,7 @@
           "id": 4
       },
       {
-          "cuestionarios": [],
+          "cuestionarios": [1,2],
           "grupo": {
               "anyo": "2015/16",
               "grupo": "1DAW",

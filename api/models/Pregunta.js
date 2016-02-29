@@ -45,127 +45,99 @@ module.exports = {
             return Opcion.find().where({ pregunta: this.id }).populate('subopciones');     
         },
 
-        comprobarRespuesta: function(respuesta, user, cuestionario, pregunta, res){
-            switch(this.tipo){
-                case "truefalse":
+        comprobarRespuesta: function(respuesta, user, cuestionario, pregunta, cb){
 
-                    this.comprobar_truefalse(respuesta, function (puntuacion, texto){
-                        Alumno.findOne({
-                            where: {user: user}
-                        }).then(function(alumno){
-                            if(alumno){
-                                console.log('------------');
-                                sails.log.verbose(texto, puntuacion);
-                                console.log('------------');
-                                Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
-                                .exec(function createCB(err, created){
-                                    res.json(created);
-                                })
+            Alumno.findOne({
+                where: {user: user}
+                }).then(function(alumno){
+                    if(alumno){
+                        switch(this.tipo){
 
-                            }else{
-                                sails.log.verbose("No estas autenticado como usuario Alumno");
-                            }
-                        })
-                    });
+                            case "truefalse":
 
-                    break;
+                                this.comprobar_truefalse(respuesta, function (puntuacion, texto){
+                                 
+                                    console.log('------------');
+                                    sails.log.verbose(texto, puntuacion);
+                                    console.log('------------');
+                                    Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
+                                    .exec(function createCB(err, created){
+                                        cb(created);
+                                    })
+                                });
 
-                case "numerical":
+                                break;
 
-                    this.comprobar_numerical(respuesta, function (puntuacion, texto){
-                        Alumno.findOne({
-                            where: {user: user}
-                        }).then(function(alumno){
-                            if(alumno){
-                                console.log('------------');
-                                sails.log.verbose(texto, puntuacion);
-                                console.log('------------');
-                                Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
-                                .exec(function createCB(err, created){
-                                    res.json(created);
-                                })
+                            case "numerical":
 
-                            }else{
-                                sails.log.verbose("No estas autenticado como usuario Alumno");
-                            }
-                        })
-                    });
-                    
-                    break;
+                                this.comprobar_numerical(respuesta, function (puntuacion, texto){
 
-                case "multichoice":
+                                    console.log('------------');
+                                    sails.log.verbose(texto, puntuacion);
+                                    console.log('------------');
+                                    Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
+                                    .exec(function createCB(err, created){
+                                        cb(created);
+                                    })
+                                });
+                                
+                                break;
 
-                    this.comprobar_multichoice(respuesta, function (puntuacion, texto){
-                        Alumno.findOne({
-                            where: {user: user}
-                        }).then(function(alumno){
-                            if(alumno){
-                                console.log('------------');
-                                sails.log.verbose(texto, puntuacion);
-                                console.log('------------');
-                                Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
-                                .exec(function createCB(err, created){
-                                    res.json(created);
-                                })
+                            case "multichoice":
 
-                            }else{
-                                sails.log.verbose("No estas autenticado como usuario Alumno");
-                            }
-                        })
-                    });
+                                this.comprobar_multichoice(respuesta, function (puntuacion, texto){
+                                    
+                                    console.log('------------');
+                                    sails.log.verbose(texto, puntuacion);
+                                    console.log('------------');
+                                    Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
+                                    .exec(function createCB(err, created){
+                                        cb(created);
+                                    })
+                                });
 
-                    break;
+                                break;
 
-                case "matching":
+                            case "matching":
 
-                    this.comprobar_matching(respuesta, function (puntuacion, texto){
-                        Alumno.findOne({
-                            where: {user: user}
-                        }).then(function(alumno){
-                            if(alumno){
-                                console.log('------------');
-                                sails.log.verbose(texto, puntuacion);
-                                console.log('------------');
-                                Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
-                                .exec(function createCB(err, created){
-                                    res.json(created);
-                                })
+                                this.comprobar_matching(respuesta, function (puntuacion, texto){
+                                    
+                                    console.log('------------');
+                                    sails.log.verbose(texto, puntuacion);
+                                    console.log('------------');
+                                    Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
+                                    .exec(function createCB(err, created){
+                                        cb(created);
+                                    })
+                                });
+                                
+                                break;
 
-                            }else{
-                                sails.log.verbose("No estas autenticado como usuario Alumno");
-                            }
-                        })
-                    }); 
-                    
-                    break;
+                            case "essay":
 
-                case "essay":
+                               this.comprobar_essay(respuesta, function (puntuacion, texto){
+                                    
+                                    console.log('------------');
+                                    sails.log.verbose(texto);
+                                    console.log('------------');
+                                    Respuesta.create({valor: texto, puntuacion: null, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
+                                    .exec(function createCB(err, created){
+                                        cb(created);
+                                    })
+                                });
+                            
+                            break;
 
-                   this.comprobar_essay(respuesta, function (puntuacion, texto){
-                        Alumno.findOne({
-                            where: {user: user}
-                        }).then(function(alumno){
-                            if(alumno){
-                                console.log('------------');
-                                sails.log.verbose(texto, puntuacion);
-                                console.log('------------');
-                                Respuesta.create({valor: texto, puntuacion: puntuacion, cuestionario: cuestionario, pregunta: pregunta, alumno: alumno.id})
-                                .exec(function createCB(err, created){
-                                    res.json(created);
-                                })
+                            case "shortanswer":
+                                
+                            break;
+                        }
 
-                            }else{
-                                sails.log.verbose("No estas autenticado como usuario Alumno");
-                            }
-                        })
-                    }); 
-                
-                break;
+                    }else{  sails.log.verbose("No estas autenticado como usuario Alumno");
 
-                case "shortanswer":
-                    
-                break;
-            }
+                    }
+
+                }.bind(this));
 
         },
 
@@ -177,25 +149,31 @@ module.exports = {
             var texto;
 
             Opcion.findOne({
-                where: { id: Number(respuesta)}
+                where: { id: Number(respuesta), pregunta: this.id}
                 }).populate('subopcions').then(function(misOpciones){
 
-                misOpciones.subopcions.forEach(function(subopcion){
-                    
-                    sails.log.verbose(subopcion);
+                    sails.log.verbose(misOpciones);
 
-                    if(subopcion.nombre === 'fraccion'){
-                        puntuacion = subopcion.valor;
-                    }
+                    if(misOpciones){
+                        misOpciones.subopcions.forEach(function(subopcion){
+                            
+                            sails.log.verbose(subopcion);
 
-                    if(subopcion.nombre === 'text'){
-                        texto = subopcion.valor;
-                    }
-                
-                });
+                            if(subopcion.nombre === 'fraccion'){
+                                puntuacion = subopcion.valor;
+                            }
 
-                cb(puntuacion, texto);
-            });
+                            if(subopcion.nombre === 'text'){
+                                texto = subopcion.valor;
+                            }
+                        
+                        });
+
+                        cb(puntuacion, texto);
+
+                    }else{throw new Error("No existe esa opcion para este tipo de pregunta")}
+
+            }).catch(function(error){console.log(error);});
         },
 
         /** multichoice - luis **/
@@ -221,25 +199,30 @@ module.exports = {
             var guardavalor1;
             var guardavalor2;
 
+
             Opcion.findOne({
-                where: { id: Number(respuestaRec) }
-            }).populate('subopciones').then(function(opcion){
-                    //console.log(opcion.subopciones); 
-                opcion.subopciones.forEach(function(subopcion){
-                    //De opcion entro a subopciones y con el forEach recorro en subopciones una subopcion
-                    if(subopcion.nombre=='fraccion'){
-                        guardavalor1=subopcion.valor; //guardo el valor de fraccion
-                        //sails.log.verbose(guardavalor1);
-                    }
-                    if(subopcion.nombre=='text'){
-                        guardavalor2=subopcion.valor; //guardo el valor de texto
-                        //sails.log.verbose(guardavalor2);
-                    }
-                })
+                where: { id: Number(respuesta), pregunta: this.id}
+            }).populate('subopcions').then(function(opcion){
+                    //console.log(opcion.subopciones);
+                if(opcion){
+                    opcion.subopcion
+                    s.forEach(function(subopcion){
+                        //De opcion entro a subopciones y con el forEach recorro en subopciones una subopcion
+                        if(subopcion.nombre=='fraccion'){
+                            guardavalor1=subopcion.valor; //guardo el valor de fraccion
+                            //sails.log.verbose(guardavalor1);
+                        }
+                        if(subopcion.nombre=='text'){
+                            guardavalor2=subopcion.valor; //guardo el valor de texto
+                            //sails.log.verbose(guardavalor2);
+                        }
+                    })
 
-                cb(guardavalor1, guardavalor2);
+                    cb(guardavalor1, guardavalor2);
 
-            })
+                }else{throw new Error("No existe esa opcion para este tipo de pregunta")}
+
+            }).catch(function(error){console.log(error);});
         },
 
          /** essay - adrian **/
@@ -251,7 +234,7 @@ module.exports = {
                 
             Opcion.findOne({
                 where: { id: Number(respuestaRecibida) }
-            }).populate('subopciones').then(function(opcion){
+            }).populate('subopcions').then(function(opcion){
                     
                 opcion.subopciones.forEach(function(subopcion){
                     
@@ -265,6 +248,7 @@ module.exports = {
                     }
 
                     cb(valor1, valor2);
+                });
             });
         },
 
@@ -277,7 +261,7 @@ module.exports = {
 
             // Cliente envia ID de la 'subquestion' y el ID de la subopcion 'answer'.
 
-            Opcion.find().where({ pregunta: req.pregunta.id, tipoOpcion: 'subquestion' }).populate('subopciones')
+            Opcion.find().where({ pregunta: this.id, tipoOpcion: 'subquestion'}).populate('subopcions')
                 .then(function(opciones){
                         
                     Puntos = 0;
